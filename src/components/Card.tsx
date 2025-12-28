@@ -6,9 +6,22 @@ interface CardProps {
   className?: string
   delay?: number
   hoverable?: boolean
+  variant?: 'default' | 'glass' | 'trust'
 }
 
-export default function Card({ children, className = '', delay = 0, hoverable = true }: CardProps) {
+export default function Card({ 
+  children, 
+  className = '', 
+  delay = 0, 
+  hoverable = true,
+  variant = 'default'
+}: CardProps) {
+  const variants = {
+    default: 'bg-white shadow-biophilic border border-gray-100/50',
+    glass: 'biophilic-glass shadow-biophilic',
+    trust: 'trust-surface text-canvas-gray shadow-biophilic'
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -16,10 +29,11 @@ export default function Card({ children, className = '', delay = 0, hoverable = 
       transition={{ duration: 0.4, delay }}
       whileHover={hoverable ? {
         y: -4,
-        boxShadow: '0 8px 30px rgba(0, 0, 0, 0.08)',
-        borderColor: 'rgba(99, 102, 241, 0.2)'
+        boxShadow: '0 12px 40px rgba(15, 23, 42, 0.12)',
+        borderColor: 'rgba(16, 185, 129, 0.3)',
+        scale: 1.02
       } : {}}
-      className={`bg-white rounded-xl p-6 shadow-premium border border-transparent transition-all duration-200 ${className}`}
+      className={`${variants[variant]} rounded-2xl p-6 transition-all duration-300 ${className}`}
     >
       {children}
     </motion.div>

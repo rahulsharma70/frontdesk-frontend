@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { Activity } from 'lucide-react'
+import { Activity, Shield } from 'lucide-react'
 import Button from './Button'
 
 export default function Header() {
@@ -23,7 +23,7 @@ export default function Header() {
       transition={{ duration: 0.5 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'glass-morphism shadow-sm border-b border-gray-200/50 py-3'
+          ? 'biophilic-glass shadow-biophilic border-b border-vitality-mint/20 py-3'
           : 'bg-transparent py-5'
       }`}
     >
@@ -32,11 +32,19 @@ export default function Header() {
           <motion.div
             whileHover={{ rotate: 360 }}
             transition={{ duration: 0.6 }}
-            className="p-2 bg-healthcare-blue rounded-lg"
+            className="relative p-3 bg-gradient-to-br from-vitality-mint to-emerald-600 rounded-xl shadow-glow"
           >
-            <Activity className="w-6 h-6 text-white" />
+            <Activity className="w-5 h-5 text-white" />
+            <motion.div
+              className="absolute inset-0 bg-white/20 rounded-xl"
+              animate={{ opacity: [0, 0.3, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
           </motion.div>
-          <span className="text-xl font-semibold text-medical-navy">FrontDesk</span>
+          <div className="flex flex-col">
+            <span className="text-xl font-bold text-hospitality-blue">FrontDesk</span>
+            <span className="text-xs text-soft-slate -mt-1">Healthcare Ecosystem</span>
+          </div>
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">
@@ -44,16 +52,20 @@ export default function Header() {
             <motion.a
               key={item}
               href={`#${item.toLowerCase()}`}
-              className="text-sm font-medium text-soft-slate hover:text-medical-navy relative group"
+              className="text-sm font-medium text-soft-slate hover:text-hospitality-blue relative group transition-colors duration-200"
               whileHover={{ y: -2 }}
             >
               {item}
-              <span className="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-healthcare-blue transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+              <span className="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-vitality-mint transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
             </motion.a>
           ))}
         </nav>
 
         <div className="flex items-center gap-4">
+          <div className="hidden md:flex items-center gap-2 px-3 py-1 bg-vitality-mint/10 rounded-full">
+            <Shield className="w-4 h-4 text-vitality-mint" />
+            <span className="text-xs font-medium text-vitality-mint">HIPAA Verified</span>
+          </div>
           <Button variant="secondary" size="sm">
             Sign In
           </Button>

@@ -46,22 +46,25 @@ export default function Pricing() {
   ]
 
   return (
-    <section id="pricing" className="py-20 px-6 bg-gray-50">
+    <section id="pricing" className="py-20 px-6 bg-white">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-medical-navy mb-4">
+          <h2 className="text-4xl font-bold text-hospitality-blue mb-4">
             Transparent Pricing
           </h2>
           <p className="text-lg text-soft-slate mb-8">
             Choose the plan that fits your practice
           </p>
 
-          <div className="inline-flex items-center gap-4 p-1 bg-white rounded-full shadow-sm">
+          <motion.div 
+            className="inline-flex items-center gap-2 p-1 biophilic-glass rounded-full shadow-biophilic"
+            layout
+          >
             <button
               onClick={() => setIsYearly(false)}
               className={`px-6 py-2 rounded-full transition-all duration-300 ${
                 !isYearly
-                  ? 'bg-healthcare-blue text-white shadow-md'
+                  ? 'bg-gradient-to-r from-vitality-mint to-emerald-600 text-white shadow-glow'
                   : 'text-soft-slate'
               }`}
             >
@@ -71,16 +74,16 @@ export default function Pricing() {
               onClick={() => setIsYearly(true)}
               className={`px-6 py-2 rounded-full transition-all duration-300 ${
                 isYearly
-                  ? 'bg-healthcare-blue text-white shadow-md'
+                  ? 'bg-gradient-to-r from-vitality-mint to-emerald-600 text-white shadow-glow'
                   : 'text-soft-slate'
               }`}
             >
               Yearly
-              <span className="ml-2 text-xs bg-mint-sage text-white px-2 py-1 rounded-full">
+              <span className="ml-2 text-xs bg-white/20 text-white px-2 py-1 rounded-full">
                 Save 20%
               </span>
             </button>
-          </div>
+          </motion.div>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
@@ -90,19 +93,24 @@ export default function Pricing() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
+              whileHover={{ y: -8, scale: 1.02 }}
               className={`bg-white rounded-2xl p-8 ${
                 plan.popular
-                  ? 'ring-2 ring-healthcare-blue shadow-premium-hover'
-                  : 'shadow-premium'
+                  ? 'ring-2 ring-vitality-mint shadow-biophilic'
+                  : 'shadow-biophilic'
               } relative`}
             >
               {plan.popular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-healthcare-blue text-white text-sm font-medium rounded-full">
+                <motion.div 
+                  className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-vitality-mint to-emerald-600 text-white text-sm font-medium rounded-full shadow-glow"
+                  animate={{ y: [0, -2, 0] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
                   Most Popular
-                </div>
+                </motion.div>
               )}
 
-              <h3 className="text-2xl font-bold text-medical-navy mb-2">
+              <h3 className="text-2xl font-bold text-hospitality-blue mb-2">
                 {plan.name}
               </h3>
 
@@ -116,9 +124,13 @@ export default function Pricing() {
                     transition={{ duration: 0.3 }}
                     className="flex items-baseline gap-1"
                   >
-                    <span className="text-5xl font-bold text-medical-navy">
+                    <motion.span 
+                      className="text-5xl font-bold text-hospitality-blue"
+                      animate={{ scale: [1, 1.05, 1] }}
+                      transition={{ duration: 0.3 }}
+                    >
                       ${isYearly ? plan.yearlyPrice : plan.monthlyPrice}
-                    </span>
+                    </motion.span>
                     <span className="text-soft-slate">
                       /{isYearly ? 'year' : 'month'}
                     </span>
@@ -129,7 +141,9 @@ export default function Pricing() {
               <ul className="space-y-4 mb-8">
                 {plan.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-mint-sage flex-shrink-0 mt-0.5" />
+                    <div className="p-1 bg-vitality-mint/10 rounded-lg flex-shrink-0 mt-0.5">
+                      <Check className="w-3 h-3 text-vitality-mint" />
+                    </div>
                     <span className="text-soft-slate">{feature}</span>
                   </li>
                 ))}
@@ -138,6 +152,7 @@ export default function Pricing() {
               <Button
                 variant={plan.popular ? 'primary' : 'secondary'}
                 className="w-full"
+                magnetic={plan.popular}
               >
                 Get Started
               </Button>

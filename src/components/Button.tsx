@@ -8,6 +8,7 @@ interface ButtonProps {
   onClick?: () => void
   className?: string
   disabled?: boolean
+  magnetic?: boolean
 }
 
 export default function Button({
@@ -16,14 +17,16 @@ export default function Button({
   size = 'md',
   onClick,
   className = '',
-  disabled = false
+  disabled = false,
+  magnetic = false
 }: ButtonProps) {
-  const baseStyles = 'font-medium rounded-lg transition-all duration-200 inline-flex items-center justify-center gap-2 shadow-sm'
+  const baseStyles = 'font-medium rounded-xl transition-all duration-300 inline-flex items-center justify-center gap-2 shadow-biophilic relative overflow-hidden'
 
   const variants = {
-    primary: 'bg-gradient-to-r from-healthcare-blue to-indigo-600 text-white hover:shadow-lg',
-    secondary: 'bg-white text-medical-navy border border-gray-200 hover:border-healthcare-blue hover:shadow-md',
-    success: 'bg-gradient-to-r from-mint-sage to-emerald-600 text-white hover:shadow-lg'
+    primary: 'bg-gradient-to-r from-vitality-mint to-emerald-600 text-white hover:shadow-glow hover:scale-102',
+    secondary: 'biophilic-glass text-hospitality-blue hover:shadow-magnetic hover:scale-102',
+    success: 'bg-gradient-to-r from-vitality-mint to-emerald-600 text-white hover:shadow-glow hover:scale-102',
+    emergency: 'bg-gradient-to-r from-red-500 to-red-600 text-white hover:shadow-glow hover:scale-102 ring-2 ring-red-200'
   }
 
   const sizes = {
@@ -35,11 +38,25 @@ export default function Button({
   return (
     <motion.button
       whileHover={{ y: -2, scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
+      whileTap={{ scale: 0.95 }}
+      animate={magnetic ? { scale: [1, 1.02, 1] } : {}}
+      transition={{ 
+        type: "spring", 
+        stiffness: 400, 
+        damping: 17,
+        scale: { duration: 0.2 }
+      }}
       onClick={onClick}
       disabled={disabled}
-      className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${disabled ? 'opacity-50 cursor-not-allowed' : ''} ${className}`}
+      className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${disabled ? 'opacity-50 cursor-not-allowed' : ''} ${magnetic ? 'animate-magnetic-snap' : ''} ${className}`}
     >
+      {variant === 'emergency' && (
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-r from-red-400/20 to-red-600/20"
+          animate={{ opacity: [0.5, 1, 0.5] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        />
+      )}
       {children}
     </motion.button>
   )
