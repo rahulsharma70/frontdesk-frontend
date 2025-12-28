@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { ArrowRight, CheckCircle, Activity, Users, Shield } from 'lucide-react'
+import { ArrowRight, CircleCheck as CheckCircle, Activity, Users, Shield } from 'lucide-react'
 import Button from './Button'
 
 export default function Hero() {

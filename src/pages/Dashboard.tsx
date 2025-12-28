@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Calendar, Users, Activity, TrendingUp, Clock, AlertCircle, Heart, Zap, Plus } from 'lucide-react'
+import { Calendar, Users, Activity, TrendingUp, Clock, CircleAlert as AlertCircle, Heart, Zap, Plus } from 'lucide-react'
 import Header from '../components/Header'
 import Card from '../components/Card'
 import Button from '../components/Button'
