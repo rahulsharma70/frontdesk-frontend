@@ -123,7 +123,7 @@ export default function Dashboard() {
                     whileHover={{ scale: 1.1 }}
                   >
                     <stat.icon className="w-6 h-6 text-vitality-mint" />
-                  </div>
+                  </motion.div>
                   <motion.span 
                     className={`text-xs font-medium px-3 py-1 rounded-full ${
                       stat.trend === 'live' 
